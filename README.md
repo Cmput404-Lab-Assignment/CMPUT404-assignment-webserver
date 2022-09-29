@@ -36,7 +36,7 @@ To get image:
 See status code in the web page:  
 --  
 
-* Uncomment the line 61  
+* Uncomment the line 61 in server.py  
 * Then run python3 server.py  
 * Go to the web page, you can see status code in the page  
 
