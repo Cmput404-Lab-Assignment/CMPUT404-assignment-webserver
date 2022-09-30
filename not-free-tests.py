@@ -84,20 +84,13 @@ class TestYourWebserver(unittest.TestCase):
         url = self.baseurl + "/deep"
         expected_url = self.baseurl + "/deep/"
         try:
-            print("*1"*80, url)
             req = request.urlopen(url, None, 3)
-            print("*2"*80, req)
             code = req.getcode() 
             if code >= 200 and code <= 299 and req.geturl() == expected_url:
-                print("*13"*80)
                 self.assertTrue(True, "The library has redirected for us")
-                print("*133"*80)
             else:
-                print("*14"*80)
                 self.assertTrue(False, "The URL hasn't changed %s %s" % (code,req.geturl()))
-                print("*144"*80)
         except request.HTTPError as e:
-            print("*22"*80)
             code = e.getcode() 
             self.assertTrue( code >= 300 and code < 400, "300ish Not FOUND! %s" % code)
 
