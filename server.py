@@ -35,9 +35,8 @@ class MyWebServer(socketserver.BaseRequestHandler):
         send = f"HTTP/1.1 200 OK\r\nDate: {current_time}\r\nContent-Type: {content_type}\r\nContent-Length: {content_len}\r\n\r\n{file}"
         self.request.sendall(bytearray(send, "utf-8"))
     def statu_301(self, location=None):
-        file = ""
         current_time = time.strftime("%a, %d %b %Y %I:%M:%S %Z", time.gmtime())
-        send = f"HTTP/1.1 301 Moved Permanently\r\nDate: {current_time}\r\nLocation: {location}\r\n\r\n{file}"
+        send = f"HTTP/1.1 301 Moved Permanently\r\nDate: {current_time}\r\n\r\nLocation: {location}"
         self.request.sendall(bytearray(send, "utf-8"))
     def statu_404(self):
         send = "HTTP/1.1 404 Not Found\r\n"
@@ -104,8 +103,9 @@ class MyWebServer(socketserver.BaseRequestHandler):
                         self.statu_404()
 
             elif os.path.exists(path_abs) and not path.endswith("/"):
+                print("--")
                 path_abs = os.path.abspath(self.root+ path + "/")
-
+                print(path_abs)
                 try:
                     self.statu_301(path_abs)
                 except:
